@@ -17,14 +17,6 @@ class SessionViewSet(viewsets.ModelViewSet):
     serializer_class = SessionSerializer
     permission_classes = [permissions.AllowAny,]
 
-    # def get_permissions(self):
-    #     if self.request.method == 'GET':
-    #         self.permission_classes = (permissions.AllowAny,)
-    #         return super(SessionViewSet, self).get_permissions()
-    #     if self.request.method == 'PUT':
-    #         self.permission_classes = (permissions.AllowAny,)
-    #         return super(SessionViewSet, self).get_permissions()
-
     def list(self, request, id=None):
         queryset = Session.objects.all()
         if id:
@@ -32,10 +24,13 @@ class SessionViewSet(viewsets.ModelViewSet):
         serializer = SessionSerializer(queryset, many = True)
         return Response(serializer.data)
 
+    #When a put request is made to /api/sessions/ this method will be called, it takes the id from the request
+    # we can use get here because if someone is leaving a rating on a session, it must exist, 
+    #then we multiply the current rating by the number of ratings, add the new rating, then divide again by the number of ratings +1 to properly weight the rating
+    # then the rating is incremented by one, and the model is saved. this method also calls the send_message function from send_sms.py
     def put(self, request):
         myid=request.data.get('id')
         new_rating = request.data.get('rating')
-        print("POST METHOD WAS CALLED", myid, new_rating)
         if myid:
             session_to_update = Session.objects.get(id=myid)
             print(session_to_update)

@@ -7,7 +7,7 @@ import re
     
     ACCOUNT_SID = "YOUR ACCOUNT SID HERE"
     AUTH_TOKEN = "YOUR AUTH TOKEN HERE"
-    FROM_NUMBER = "YOUR TWILIO NUMBER HERE"
+    FROM_NUMBER = "YOUR TWILIO NUMBER HERE" (INCLUDING THE + sign!)
 '''
 def send_message(speakers, new_rating, session):
     account_sid = os.getenv('ACCOUNT_SID')
