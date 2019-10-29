@@ -1,5 +1,4 @@
-"""pheedloop URL Configuration
-
+"""
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
 Examples:
@@ -15,8 +14,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from . import views
+from . import api
+
+router = routers.DefaultRouter()
+router.register(r'sessions', api.SessionViewSet)
+router.register(r'speakers', api.SpeakerViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('presentations.urls'))
+    path('api/', include(router.urls)),
 ]
