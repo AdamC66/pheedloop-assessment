@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status, parsers
 from django.db.models import Q
+from .send_sms import send_message
 import datetime
 
 
@@ -42,6 +43,7 @@ class SessionViewSet(viewsets.ModelViewSet):
             session_to_update.num_of_ratings += 1
             session_to_update.save()
             serializer = SessionSerializer(session_to_update)
+            send_message(session_to_update.speakers.all(), new_rating, session_to_update)
             return Response(data=serializer.data,status=status.HTTP_200_OK)
             
 class SpeakerViewSet(viewsets.ModelViewSet):
