@@ -38,7 +38,7 @@ class SessionViewSet(viewsets.ModelViewSet):
             session_to_update.num_of_ratings += 1
             session_to_update.save()
             serializer = SessionSerializer(session_to_update)
-            send_message(session_to_update.speakers.all(), new_rating, session_to_update)
+            # send_message(session_to_update.speakers.all(), new_rating, session_to_update)
             return Response(data=serializer.data,status=status.HTTP_200_OK)
             
 class SpeakerViewSet(viewsets.ModelViewSet):

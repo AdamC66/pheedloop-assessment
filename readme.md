@@ -25,3 +25,7 @@ I also used react-star-rating-component to visually display the rating, after im
 ##Next Steps
 the first next step is authentication, I'm thinking I'll try JWT auth, but if I cant get that to work I've done token auth through DRF before and that shouldnt be a problem. then creating a dashboard to add/edit/remove sessions and speakers. then the google sheets integration. I would also like to write tests for the backend
 
+##Auth
+
+Here we have a question, what is a user? is a speaker a user? If so what will a speaker be able to do?
+For the purposes of this assessment I'm going to assume a user is an "orginizer" of sorts. This user will be able to create edit and delete sessions, as well as speakers.

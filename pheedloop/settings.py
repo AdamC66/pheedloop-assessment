@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pheedloop',
     'presentations',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
