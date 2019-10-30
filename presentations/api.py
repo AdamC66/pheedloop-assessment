@@ -17,13 +17,23 @@ class SessionViewSet(viewsets.ModelViewSet):
     serializer_class = SessionSerializer
     permission_classes = [permissions.AllowAny,]
 
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user) 
+
     def list(self, request, id=None):
         queryset = Session.objects.all()
         if id:
             queryset = queryset.filter(id=id)
+        if request.user.is_anonymous:
+            serializer = SessionSerializer(queryset, many = True)
+            return Response(serializer.data)
+        if request.user:
+            print("IM FILTERING")
+            print(request.user)
+            queryset = queryset.filter(owner=request.user)
         serializer = SessionSerializer(queryset, many = True)
         return Response(serializer.data)
-
     #When a put request is made to /api/sessions/ this method will be called, it takes the id from the request
     # we can use get here because if someone is leaving a rating on a session, it must exist, 
     #then we multiply the current rating by the number of ratings, add the new rating, then divide again by the number of ratings +1 to properly weight the rating
@@ -40,7 +50,8 @@ class SessionViewSet(viewsets.ModelViewSet):
             serializer = SessionSerializer(session_to_update)
             # send_message(session_to_update.speakers.all(), new_rating, session_to_update)
             return Response(data=serializer.data,status=status.HTTP_200_OK)
-            
+
+      
 class SpeakerViewSet(viewsets.ModelViewSet):
     queryset = Speaker.objects.all()
     serializer_class = SpeakerSerializer
@@ -57,3 +68,6 @@ class SpeakerViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(id=id)
         serializer = SpeakerSerializer(queryset, many = True)
         return Response(serializer.data)
+
+    def perform_create(self, serializer):
+        serializer.save() 
