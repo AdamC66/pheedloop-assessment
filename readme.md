@@ -25,7 +25,29 @@ I also used react-star-rating-component to visually display the rating, after im
 ##Next Steps
 the first next step is authentication, I'm thinking I'll try JWT auth, but if I cant get that to work I've done token auth through DRF before and that shouldnt be a problem. then creating a dashboard to add/edit/remove sessions and speakers. then the google sheets integration. I would also like to write tests for the backend
 
+
+#Day 2
 ##Auth
 
 Here we have a question, what is a user? is a speaker a user? If so what will a speaker be able to do?
-For the purposes of this assessment I'm going to assume a user is an "orginizer" of sorts. This user will be able to create edit and delete sessions, as well as speakers.
+For the purposes of this assessment I'm going to assume a user is an "orginizer" of sorts. This user will be able to create edit and delete sessions, as well as speakers....
+
+In the end, I decided to make it so users are anyone that want to create a session. once registered and logged in, users can create sessions and speakers. When creating a speaker users have a dropdown menu that is populated with all their sessions. they can also add a speaker without including a session, however I still have to add a way to add already existing speakers to already existing sessions.
+
+Also need to add edit/ delete functionality to speakers and sessions.
+
+I ended up using DRF token auth, as I was familiar with it, I'd like to add a way to delete tokens on logout, and create a new one on login.
+
+I'm still not sure the best way to handle authentication in React, in the previous project I used it, we ended up having every page/component check to see if the user was logged in, this ended up making the app rather clunky imo, so this time I decided to try something different.
+
+now, the App component handles all the authentication checking. and simply either passes a "loggedIn" boolean to components where things are conditionally rendered based on if the user is logged in (eg showing "Login/Register" or "Logout" in the header) or, allows private routes in the Router, which is a component from "https://tylermcginnis.com/react-router-protected-routes-authentication/" which works quite well in my opinion. This has the effect that if an unauthenticated user were to navigate to a private route they are automatically redirected to the login page.
+
+##Google Sheets
+
+This was actually pretty easy, now, a user can only leave a rating if they are logged in, and when the user leaves a rating it adds a row to a google sheet with the timestamp, rating, id of the session and the users first and last name. This was accomplished by using the google sheets api (obviously).
+
+##Progress
+
+Overall I am very happy with the progress I made today, as stated above the obvious next step is to add edit/delete functionality for sessions and speaker and add a way to add existing speakers to sessions. this would mean that speakers would need an owner attribute.
+
+Then I think it's just some styling and testing, pretty good for 2 days work.
