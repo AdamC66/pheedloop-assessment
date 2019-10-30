@@ -8,9 +8,7 @@ from rest_framework.decorators import action
 from rest_framework import status, parsers
 from django.db.models import Q
 from .send_sms import send_message
-import datetime
-
-
+from .sheets import addRow
 
 class SessionViewSet(viewsets.ModelViewSet):
     queryset = Session.objects.all()
@@ -43,12 +41,12 @@ class SessionViewSet(viewsets.ModelViewSet):
         new_rating = request.data.get('rating')
         if myid:
             session_to_update = Session.objects.get(id=myid)
-            print(session_to_update)
             session_to_update.rating = ((session_to_update.rating * session_to_update.num_of_ratings) + int(new_rating))/ (session_to_update.num_of_ratings + 1)
             session_to_update.num_of_ratings += 1
             session_to_update.save()
             serializer = SessionSerializer(session_to_update)
             # send_message(session_to_update.speakers.all(), new_rating, session_to_update)
+            addRow(session_to_update.id, new_rating)
             return Response(data=serializer.data,status=status.HTTP_200_OK)
 
       
