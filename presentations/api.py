@@ -27,8 +27,6 @@ class SessionViewSet(viewsets.ModelViewSet):
             serializer = SessionSerializer(queryset, many = True)
             return Response(serializer.data)
         if request.user:
-            print("IM FILTERING")
-            print(request.user)
             queryset = queryset.filter(owner=request.user)
         serializer = SessionSerializer(queryset, many = True)
         return Response(serializer.data)
@@ -46,7 +44,7 @@ class SessionViewSet(viewsets.ModelViewSet):
             session_to_update.save()
             serializer = SessionSerializer(session_to_update)
             # send_message(session_to_update.speakers.all(), new_rating, session_to_update)
-            addRow(session_to_update.id, new_rating)
+            addRow(session_to_update.id, new_rating, first_name=request.user.first_name, last_name=request.user.last_name)
             return Response(data=serializer.data,status=status.HTTP_200_OK)
 
       
