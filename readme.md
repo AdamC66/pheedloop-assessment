@@ -46,7 +46,7 @@ now, the App component handles all the authentication checking. and simply eithe
 
 This was actually pretty easy, now, a user can only leave a rating if they are logged in, and when the user leaves a rating it adds a row to a google sheet with the timestamp, rating, id of the session and the users first and last name. This was accomplished by using the google sheets api (obviously).
 
-##Progress
+## Progress
 
 Overall I am very happy with the progress I made today, as stated above the obvious next step is to add edit/delete functionality for sessions and speaker and add a way to add existing speakers to sessions. this would mean that speakers would need an owner attribute.
 
