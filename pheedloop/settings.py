@@ -29,7 +29,7 @@ SECRET_KEY = 'b3_+pp)dn(ta#in&zj7=7ewiu22pg!7*fx%^zub=_wi11u5s2x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pheedloop-adam-cote.herokuapp.com']
+ALLOWED_HOSTS = ['']
 
 
 # Application definition
