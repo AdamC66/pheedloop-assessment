@@ -16,6 +16,7 @@ class Speaker(models.Model):
     photo = models.URLField(null=True, blank=True)
     phone_number = models.CharField(max_length = 50, null=True, blank=True)
     email = models.EmailField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="speakers", null=True)
     session = models.ManyToManyField(Session, related_name="speakers", blank=True)
 
     def __str__(self):

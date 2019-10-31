@@ -5,7 +5,7 @@ from .models import *
 class SpeakerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Speaker
-        fields = ('name', 'bio', 'photo', 'phone_number', 'email', 'session')
+        fields = ('id','name', 'bio', 'photo', 'phone_number', 'email', 'session')
 
 
 class SessionSerializer(serializers.ModelSerializer):

@@ -95,5 +95,21 @@ class SpeakerViewSet(viewsets.ModelViewSet):
         serializer = SpeakerSerializer(queryset, many = True)
         return Response(serializer.data)
 
+    def put(self,request):
+        myid = request.data.get('id')
+        if myid:
+            speaker = Speaker.objects.get(id=myid)
+            speaker.name = request.data.get('name')
+            speaker.bio = request.data.get('bio')
+            speaker.photo = request.data.get('photo')
+            speaker.phone_number = request.data.get('phone_number')
+            speaker.email = request.data.get('email')
+            if request.data.get('session'):
+                new_sessions = request.data.get('session').split(',')
+                print(new_sessions)
+                speaker.session.set(new_sessions)
+            speaker.save()
+            serializer = SpeakerSerializer(speaker)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
     def perform_create(self, serializer):
-        serializer.save() 
+        serializer.save(owner=self.request.user) 
