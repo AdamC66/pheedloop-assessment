@@ -9,7 +9,7 @@ from rest_framework import status, parsers
 from django.db.models import Q
 from .send_sms import send_message
 from .sheets import addRow
-
+from .sendmail import session_alert
 class SessionViewSet(viewsets.ModelViewSet):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
@@ -108,8 +108,10 @@ class SpeakerViewSet(viewsets.ModelViewSet):
                 new_sessions = request.data.get('session').split(',')
                 print(new_sessions)
                 speaker.session.set(new_sessions)
+                # session_alert(speaker.name, speaker.email, new_sessions)
             speaker.save()
             serializer = SpeakerSerializer(speaker)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
     def perform_create(self, serializer):
+        # session_alert(self.request.data.get('name'),self.request.data.get('email'), self.request.data.get('session'))
         serializer.save(owner=self.request.user) 
