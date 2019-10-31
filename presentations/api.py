@@ -115,4 +115,5 @@ class SpeakerViewSet(viewsets.ModelViewSet):
             return Response(data=serializer.data, status=status.HTTP_200_OK)
     def perform_create(self, serializer):
         # session_alert(self.request.data.get('name'),self.request.data.get('email'), self.request.data.get('session'))
+        print(self.request.data)
         serializer.save(owner=self.request.user) 

@@ -1,16 +1,17 @@
-import React from 'react'
-import SessionCard from '../SessionCard/SessionCard'
+import React from "react";
+import SessionCard from "../SessionCard/SessionCard";
 
+function SessionTable({ sessions, edit }) {
+  let sessionElements = [];
+  if (sessions.length > 0) {
+    sessionElements = sessions.map((session, i) => (
+      <SessionCard key={i} index={i} session={session} edit={edit} />
+    ));
+  } else {
+    sessionElements = <div>No Sessions... yet</div>;
+  }
 
-function SessionTable({sessions, edit}) {
-
-    const sessionElements = sessions.map((session, i)=><SessionCard key={i} index={i} session={session} edit={edit}/>)
-
-    return (
-        <div>
-            {sessionElements}
-        </div>
-    )
+  return <div>{sessionElements}</div>;
 }
 
-export default SessionTable
+export default SessionTable;

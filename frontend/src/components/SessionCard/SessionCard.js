@@ -3,8 +3,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 import SpeakerCard from "../SpeakerCard/SpeakerCard";
-import StarRatingComponent from 'react-star-rating-component';
-import { Link } from 'react-router-dom'
+import StarRatingComponent from "react-star-rating-component";
+import { Link } from "react-router-dom";
 function SessionCard({ session, edit }) {
   const [open, setOpen] = useState(false);
   const styles = {
@@ -12,29 +12,31 @@ function SessionCard({ session, edit }) {
       width: "80%",
       margin: "0.5em auto"
     },
-    starStyle:{
-        float: 'right'
+    starStyle: {
+      float: "right"
     }
   };
-  const speakerElements = session.speakers.map((speaker, i) => (
-    <SpeakerCard key={i} index={i} speaker={speaker} />
-  ));
+  let speakerElements = [];
+  if (session.speakers.length > 0) {
+    speakerElements = session.speakers.map((speaker, i) => (
+      <SpeakerCard key={i} index={i} speaker={speaker} />
+    ));
+  } else {
+    speakerElements = <div>No Speakers... yet.</div>;
+  }
 
   return (
     <Card style={styles.cardStyle}>
       <Card.Header as="h5">
-        <Link to={`/Sessions/${session.id}`}>
-      {session.title}
-      </Link>
-      <span style = {styles.starStyle} >
-      <StarRatingComponent
-            
-          name="rate2" 
-          editing={false}
-          starCount={5}
-          value={session.rating}
-        />
-      </span>
+        <Link to={`/Sessions/${session.id}`}>{session.title}</Link>
+        <span style={styles.starStyle}>
+          <StarRatingComponent
+            name="rate2"
+            editing={false}
+            starCount={5}
+            value={session.rating}
+          />
+        </span>
       </Card.Header>
       <Card.Body>
         <Card.Text>{session.description}</Card.Text>
@@ -51,10 +53,13 @@ function SessionCard({ session, edit }) {
             <Collapse in={open}>
               <div id="example-collapse-text">{speakerElements}</div>
             </Collapse>
-            
           </Card.Body>
         </Card>
-        {edit ? <Button href={`/session/${session.id}/edit`} >Edit</Button> : <span></span>}
+        {edit ? (
+          <Button href={`/session/${session.id}/edit`}>Edit</Button>
+        ) : (
+          <span></span>
+        )}
       </Card.Body>
     </Card>
   );

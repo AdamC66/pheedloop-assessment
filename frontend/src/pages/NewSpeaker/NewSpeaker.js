@@ -41,12 +41,13 @@ function NewSpeaker() {
         });
           setSessionData(result.data);
           setIsLoading(false)
+          setSelectedSession(result.data[0].id)
         };
         fetchData();
     }, []);
 
     const handleSelect = (e) =>{
-        setSelectedSession(sessionData[e.target.selectedIndex].id)
+        setSelectedSession((sessionData[e.target.selectedIndex].id).toString())
     }
 
     const handleSubmit = () =>{
