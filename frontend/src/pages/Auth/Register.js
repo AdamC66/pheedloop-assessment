@@ -11,11 +11,9 @@ function Register() {
     
     const confirmPassword = (event) => {
         if (password !== event.target.value){
-            console.log('passwordDoesnt')
             setPassClass('error-pass');
             setConfirmPass('pass-not-match')
         } else {
-            console.log('passwordMatches')
             setPassClass('correct');
             setConfirmPass('hidden-pw')
             }
@@ -55,7 +53,6 @@ function Register() {
                     )
                     })
                 }).catch(e => {
-                    console.log(e)
                     alert('Please ensure that you have the correct email')
                 }).then(()=>{
                     window.location.href='/'

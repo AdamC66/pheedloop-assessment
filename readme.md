@@ -51,3 +51,35 @@ This was actually pretty easy, now, a user can only leave a rating if they are l
 Overall I am very happy with the progress I made today, as stated above the obvious next step is to add edit/delete functionality for sessions and speaker and add a way to add existing speakers to sessions. this would mean that speakers would need an owner attribute.
 
 Then I think it's just some styling and testing, pretty good for 2 days work.
+
+#Day 3
+
+##Edit/Delete
+
+I added edit/ delete functionality to the back and front end for speakers and sessions. sessions was relatively easy, most of the code was already written, I did add the possibility to add speakers from the session endpoint, but havent implemented anything in the front end to handle that yet. 
+
+The editing speakers was also relatively easy, I did add the owner property to speakers as mentioned in the day 2 update, this ensures users can only edit speakers they have created. I have not locked this out in the frontend however, that is to say a user could navigate to /speakers/2/edit even if they werent the owner of speaker 2, however they could not successfully send a request to the back end to update the speaker.
+
+In the edit speaker page, I added a multiselect for sessions, this allows users to assign speakers to multiple sessions, this just seemed like a good feature that was easy enough to add.
+
+##Validation
+I also added validators to the create/edit forms for speakers and sessions. all fields are required on the form,so for each field I simply checked if the form field had a value, and if it doesnt I add an error. for Email and photo urls, I used regular expressions to test, I found those 2 on stack overflow. I also limited the photo url to 200 characters as that is the limit of URLField in Django.
+
+
+##Email Sending
+I also added a backend code to send an email when a speaker has been added to a session. this is pretty basic, and uses my own gmail, so I've left the code commented out, but whenever a speaker is added/updated they will recieve an email alert with the sessions they've been assigned to
+
+##Review
+
+In the interest of adding functionality quickly, I have different pages for the add/edit speaker/session pages, realistically I could have made one page that handles both cases, but in the interest of getting things done quickly I simply copied/renamed them. This had a drawback when it came to adding validators, which I added individually to each page. Also I probably (definitely, it's not DRY at all) could have made a component to handle the validation as well, but agian in the interest of adding/ completing it quickly I copied it to the components/ made it to suit each.
+
+I believe I'm at the point where all the required features are in place per the instructions, there are many features that I can see on a roadmap, but in the interest of trying to get this deployed/running I'm going to skip them for now, but I may as well list some of the things I can think of now.
+
+1. adding an events model (date_start, date_end, location, sessions, etc.)
+2. Grouping Sessions in events
+3. Associating users with events/ adding tickets to events
+4. adding more information to sessions (eg date, time, location, lead photo)
+5. adding feedback to individual speakers as opposed to just the session
+6. adding comments to session review rather than just the star rating system
+
+Again I should also clean up the styling, I tend to keep things pretty basic during initial development, I think it's clean enough for now, and I really want to work on deployment so I'm going to leave it.

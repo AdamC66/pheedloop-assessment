@@ -34,7 +34,7 @@ function App() {
           setUserName(res.data[0].first_name)
       }).catch(res =>{
         setLoggedIn(false)
-        console.log("I logged you out")
+    
       })
     }
   }

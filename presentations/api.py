@@ -97,7 +97,8 @@ class SpeakerViewSet(viewsets.ModelViewSet):
 
     def put(self,request):
         myid = request.data.get('id')
-        if myid:
+        speaker = Speaker.objects.get(id=myid)
+        if myid and request.user == speaker.owner:
             speaker = Speaker.objects.get(id=myid)
             speaker.name = request.data.get('name')
             speaker.bio = request.data.get('bio')

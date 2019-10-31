@@ -41,13 +41,11 @@ function NewSpeaker() {
         });
           setSessionData(result.data);
           setIsLoading(false)
-          console.log("DATA",result.data)
         };
         fetchData();
     }, []);
 
     const handleSelect = (e) =>{
-        console.log(e.target.selectedIndex)
         setSelectedSession(sessionData[e.target.selectedIndex].id)
     }
 
@@ -93,7 +91,7 @@ function NewSpeaker() {
         }
         if (!data.photo){
             current_errors['photo']=("This field is required")
-        }else if(data['photo'].length > 255){
+        }else if(data['photo'].length > 200){
             current_errors['photo']=("Photo link length must be less than 255 characters")
         }else if (!validURLRegex.test(data.photo)){
             current_errors['photo']=("Please enter a valid url")

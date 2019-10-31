@@ -14,7 +14,6 @@ function Login() {
         main_url.post("/users/api-token-auth/", user)
         .then(res => {
             window.localStorage['token'] = res.data['token']
-            console.log(window.localStorage['token'])
         }).catch(() => {
             alert('Incorrect login credentials, please try again');
             setPassword('');

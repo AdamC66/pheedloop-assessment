@@ -53,7 +53,6 @@ function EditSpeaker(props) {
     }, []);
 
     const handleSelect = (e) =>{
-        console.log(e.target.selectedIndex)
         if (sessionData[e.target.selectedIndex]){
             var options = e.target.options;
             var value = [];
@@ -61,7 +60,6 @@ function EditSpeaker(props) {
               if (options[i].selected) {
                 value.push(Number.parseInt((options[i].id),10));
                 setSelectedSession(value.toString())
-                console.log(value.toString())
               }
             }
         }
@@ -75,7 +73,6 @@ function EditSpeaker(props) {
     }
     const handleSubmit = () =>{
         const body = {name, bio, photo, phone_number: phone, email, session: selectedSession, id:props.match.params.id}
-        console.log(checkErrors(body))
         const userToken = window.localStorage.token
         if (checkErrors(body)){
             main_url.put(`/api/speakers/`, body, {
@@ -128,7 +125,7 @@ function EditSpeaker(props) {
         }
         if (!data.photo){
             current_errors['photo']=("This field is required")
-        }else if(data['photo'].length > 255){
+        }else if(data['photo'].length > 200){
             current_errors['photo']=("Photo link length must be less than 255 characters")
         }else if (!validURLRegex.test(data.photo)){
             current_errors['photo']=("Please enter a valid url")
