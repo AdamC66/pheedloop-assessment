@@ -8,8 +8,8 @@ from rest_framework.decorators import action
 from rest_framework import status, parsers
 from django.db.models import Q
 from .send_sms import send_message
-from .sheets import addRow
-from .sendmail import session_alert
+# from .sheets import addRow
+# from .sendmail import session_alert
 class SessionViewSet(viewsets.ModelViewSet):
     queryset = Session.objects.all()
     serializer_class = SessionSerializer
